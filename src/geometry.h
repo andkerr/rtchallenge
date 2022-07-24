@@ -13,6 +13,9 @@ public:
         : x(x), y(y), z(z), w(w) {
     }
 
+    Tuple(const Tuple& t)
+        : x(t.x), y(t.y), z(t.z), w(t.w) { }
+
     bool is_point() const {
         return w == 1;
     }
@@ -30,6 +33,10 @@ public:
 
     Tuple operator+(const Tuple rhs) const {
         return Tuple(x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w);
+    }
+
+    Tuple& operator+=(const Tuple rhs) {
+        return (*this = *this + rhs);
     }
 
     Tuple operator-(const Tuple rhs) const {
@@ -61,12 +68,6 @@ std::ostream &operator<<(std::ostream& os, const Tuple& t) {
     return os;
 }
 
-class Point : public Tuple {
-public:
-    Point(double x, double y, double z)
-        : Tuple(x, y, z, 1) { }
-};
-
 class Vector : public Tuple {
 public:
     Vector(double x, double y, double z)
@@ -96,6 +97,18 @@ public:
         return Vector(y * rhs.z - z * rhs.y,
                       z * rhs.x - x * rhs.z,
                       x * rhs.y - y * rhs.x);
+    }
+};
+
+class Point : public Tuple {
+public:
+    Point(double x, double y, double z)
+        : Tuple(x, y, z, 1) { }
+
+    Point operator+(const Vector& rhs) const {
+        return Point(x + rhs.x,
+                     y + rhs.y,
+                     z + rhs.z);
     }
 };
 

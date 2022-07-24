@@ -23,17 +23,28 @@ public:
     }
 
     Colour get_pixel(int x, int y) const {
+        assert(in_bounds(x, y));
         int offset = width * y + x;
         return pixels[offset];
     }
 
     void set_pixel(int x, int y, const Colour &c) {
-        int offset = width * y + x;
-        pixels[offset] = c;
+        if (in_bounds(x, y)) {
+            int offset = width * y + x;
+            pixels[offset] = c;
+        }
     }
 
     int size() const {
         return width * height;
+    }
+
+    int get_width() const {
+        return width;
+    }
+
+    int get_height() const {
+        return height;
     }
 
     void to_ppm(std::ostream &os);
@@ -44,9 +55,9 @@ private:
     
     int width, height;
 
-    void check_bounds(int x, int y) {
-        assert(0 <= x && x < width);
-        assert(0 <= y && y < height);
+    bool in_bounds(int x, int y) const {
+        return (0 <= x && x < width &&
+                0 <= y && y < height);
     }
 };
 

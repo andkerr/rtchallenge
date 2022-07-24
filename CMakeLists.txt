@@ -19,3 +19,9 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     double
     canvas
 )
+
+ADD_EXECUTABLE(projectile.exe src/projectile.cpp)
+TARGET_LINK_LIBRARIES(projectile.exe
+    double
+    canvas
+)

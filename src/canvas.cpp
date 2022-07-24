@@ -24,8 +24,8 @@ void Canvas::to_ppm(std::ostream& os) {
     // I am not sure if these should be ints or doubles, does
     // PPM truncate to integer values anyway?
     int r_scaled, g_scaled, b_scaled;
-    for (int x = 0; x < width; ++x) {
-        for (int y = 0; y < height; ++y) {
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
             p = get_pixel(x, y);
             r_scaled = scale(p.r, 0, COLOUR_MAX);
             g_scaled = scale(p.g, 0, COLOUR_MAX);
