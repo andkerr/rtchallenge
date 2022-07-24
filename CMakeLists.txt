@@ -7,6 +7,7 @@ INCLUDE_DIRECTORIES(src)
 
 ADD_LIBRARY(double src/double.cpp)
 ADD_LIBRARY(canvas src/canvas.cpp)
+ADD_LIBRARY(matrix src/matrix.cpp)
 
 # Unit Tests
 
@@ -18,10 +19,12 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     Catch2::Catch2WithMain
     double
     canvas
+    matrix
 )
 
 ADD_EXECUTABLE(projectile.exe src/projectile.cpp)
 TARGET_LINK_LIBRARIES(projectile.exe
     double
     canvas
+    matrix
 )

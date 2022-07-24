@@ -11,7 +11,6 @@ using namespace std;
 int main() {
     Point pos(0, 0, 0);
     Vector velocity(1.65, 6, 0);
-    Vector wind(-0.1, 0, 0);
     const Vector gravity(0, -0.05, 0);
 
     Canvas canvas(400, 400);
@@ -23,7 +22,7 @@ int main() {
     canvas.set_pixel(x_in, y_in, visited);
 
     for (int i = 0; i < 250; ++i) {
-        pos += (velocity + wind);
+        pos += velocity;
         velocity += gravity;
 
         x_in = pos.x;

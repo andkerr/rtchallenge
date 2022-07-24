@@ -50,7 +50,6 @@ public:
     void to_ppm(std::ostream &os);
 
 private:
-    // Private Canvas data
     std::unique_ptr<Colour[]> pixels;
     
     int width, height;
