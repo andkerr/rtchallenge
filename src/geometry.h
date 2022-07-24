@@ -9,6 +9,9 @@
 
 class Tuple {
 public:
+    Tuple()
+        : x(0), y(0), z(0), w(0) { }
+
     Tuple(double x, double y, double z, int w)
         : x(x), y(y), z(z), w(w) {
     }
@@ -60,13 +63,7 @@ public:
     int w;
 };
 
-std::ostream &operator<<(std::ostream& os, const Tuple& t) {
-    os << (t.is_point() ? "Point( " : "Vector(")
-       << t.x << ", "
-       << t.y << ", "
-       << t.z << ")";
-    return os;
-}
+std::ostream &operator<<(std::ostream& os, const Tuple& t);
 
 class Vector : public Tuple {
 public:
