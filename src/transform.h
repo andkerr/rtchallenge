@@ -3,6 +3,9 @@
 
 #include "matrix.h"
 
+#define _USE_MATH_DEFINES // PI
+#include <cmath>
+
 namespace Transform {
 
     Matrix4x4 translate(double x, double y, double z);
