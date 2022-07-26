@@ -86,4 +86,54 @@ TEST_CASE("Tranformations tests") {
         REQUIRE(eighth.inverse().mul(p) == Point(sqrt(2) / 2, sqrt(2) / 2, 0));
         REQUIRE(quarter.inverse().mul(p) == Point(1, 0, 0));
     }
+
+    SECTION("Shearing transformations scale coordinates proportionately to their distances"
+            "from the other two axes") {
+        Matrix4x4 shear = Transform::shear(1, 0, 0, 0, 0, 0);
+        Point p (2, 3, 4);
+
+        REQUIRE(shear.mul(p) == Point(5, 3, 4));
+
+        shear = Transform::shear(0, 1, 0, 0, 0, 0);
+        REQUIRE(shear.mul(p) == Point(6, 3, 4));
+
+        shear = Transform::shear(0, 0, 1, 0, 0, 0);
+        REQUIRE(shear.mul(p) == Point(2, 5, 4));
+
+        shear = Transform::shear(0, 0, 0, 1, 0, 0);
+        REQUIRE(shear.mul(p) == Point(2, 7, 4));
+
+        shear = Transform::shear(0, 0, 0, 0, 1, 0);
+        REQUIRE(shear.mul(p) == Point(2, 3, 6));
+
+        shear = Transform::shear(0, 0, 0, 0, 0, 1);
+        REQUIRE(shear.mul(p) == Point(2, 3, 7));
+    }
+
+    SECTION("A sequence of a transformations can be applied to a Point or Vector individually.") {
+        Point p(1, 0, 1);
+        Matrix4x4 A = Transform::rotate_x(M_PI / 2);
+        Matrix4x4 B = Transform::scale(5, 5, 5);
+        Matrix4x4 C = Transform::translate(10, 5, 7);
+
+        Point p2 = A.mul(p);
+        REQUIRE(p2 == Point(1, -1, 0));
+
+        Point p3 = B.mul(p2);
+        REQUIRE(p3 == Point(5, -5, 0));
+
+        Point p4 = C.mul(p3);
+        REQUIRE(p4 == Point(15, 0, 7));
+    }
+
+    SECTION("A sequence of transformations can be applied by first multiplying the sequence of"
+            "matrices in reverse order, then applying the result to the initial Point or Vector") {
+        Point p(1, 0, 1);
+        Matrix4x4 A = Transform::rotate_x(M_PI / 2);
+        Matrix4x4 B = Transform::scale(5, 5, 5);
+        Matrix4x4 C = Transform::translate(10, 5, 7);
+        Matrix4x4 transform = C.mul(B.mul(A));
+
+        REQUIRE(transform.mul(p) == Point(15, 0, 7));
+    }
 }

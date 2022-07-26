@@ -43,8 +43,15 @@ Matrix4x4 Transform::rotate_z(double rads) {
     return result;
 }
 
-// Does it make sense to swap the y* args here?
-// For me, this connotes "wrapping" x -> y -> z
 Matrix4x4 Transform::shear(double xy, double xz,
                            double yx, double yz,
-                           double zx, double zy);
+                           double zx, double zy) {
+    Matrix4x4 result;
+    result.m[0][1] = xy;
+    result.m[0][2] = xz;
+    result.m[1][0] = yx;
+    result.m[1][2] = yz;
+    result.m[2][0] = zx;
+    result.m[2][1] = zy;
+    return result;
+}

@@ -6,6 +6,7 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <stdexcept>
 
 class Tuple {
 public:
@@ -70,6 +71,16 @@ public:
     Vector(double x, double y, double z)
         : Tuple(x, y, z, 0) { }
 
+    Vector(const Tuple& t) {
+        if(!doubleEqual(t.w, 0)) {
+            throw std::invalid_argument("Vector cannot be constructed from Tuple if w != 0");
+        }
+
+        x = t.x;
+        y = t.y;
+        z = t.z;
+        w = t.w;
+    }
 
     double magnitudeSquared() const {
         return x*x + y*y + z*z;
@@ -101,6 +112,16 @@ class Point : public Tuple {
 public:
     Point(double x, double y, double z)
         : Tuple(x, y, z, 1) { }
+
+    Point(const Tuple& t) {
+        if (!doubleEqual(t.w, 1.0)) {
+            throw std::invalid_argument("Point cannot be constructed from Tuple if w != 1");
+        }
+        x = t.x;
+        y = t.y;
+        z = t.z;
+        w = t.w;
+    }
 
     Point operator+(const Vector& rhs) const {
         return Point(x + rhs.x,

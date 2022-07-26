@@ -42,3 +42,12 @@ TARGET_LINK_LIBRARIES(projectile.exe
     double
     geometry
 )
+
+ADD_EXECUTABLE(clock.exe src/clock.cpp)
+TARGET_LINK_LIBRARIES(clock.exe
+    canvas
+    double
+    geometry
+    matrix
+    transform
+)
