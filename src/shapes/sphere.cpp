@@ -6,11 +6,12 @@ struct QuadraticCoeffs {
 };
 
 static void compute_quadratic_coeffs(const Ray& r, const Sphere& s, QuadraticCoeffs& coeffs) {
-    Ray r_obj = r.transform(s.obj_to_world.inverse());
-    Vector s_to_r = r_obj.origin - Point(0, 0, 0);
-    coeffs.a = r_obj.direction.magnitudeSquared();
-    coeffs.b = 2 * r_obj.direction.dot(s_to_r);
-    coeffs.c = s_to_r.magnitudeSquared() - (s.radius * s.radius);
+    Ray r_object_space = r.transform(s.obj_to_world.inverse());
+    // Sphere located at origin in object space
+    Vector sphere_to_ray = r_object_space.origin - Point(0, 0, 0);
+    coeffs.a = r_object_space.direction.magnitudeSquared();
+    coeffs.b = 2 * r_object_space.direction.dot(sphere_to_ray);
+    coeffs.c = sphere_to_ray.magnitudeSquared() - (s.radius * s.radius);
 }
 
 bool Sphere::intersects(const Ray& r, std::vector<Intersection>& solns) const {
