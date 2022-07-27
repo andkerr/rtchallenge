@@ -57,3 +57,14 @@ TARGET_LINK_LIBRARIES(clock.exe
     matrix
     transform
 )
+
+ADD_EXECUTABLE(sphere_silhouette.exe demos/sphere_silhouette.cpp)
+TARGET_LINK_LIBRARIES(sphere_silhouette.exe
+    canvas
+    double
+    geometry
+    matrix
+    shape
+    sphere
+    transform
+)
