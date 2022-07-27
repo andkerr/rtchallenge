@@ -4,6 +4,7 @@ PROJECT(rtchallenge)
 set(CMAKE_CXX_STANDARD 11)
 
 INCLUDE_DIRECTORIES(
+    demos
     src
     src/shapes
 )
@@ -41,14 +42,14 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     transform
 )
 
-ADD_EXECUTABLE(projectile.exe src/projectile.cpp)
+ADD_EXECUTABLE(projectile.exe demos/projectile.cpp)
 TARGET_LINK_LIBRARIES(projectile.exe
     canvas
     double
     geometry
 )
 
-ADD_EXECUTABLE(clock.exe src/clock.cpp)
+ADD_EXECUTABLE(clock.exe demos/clock.cpp)
 TARGET_LINK_LIBRARIES(clock.exe
     canvas
     double
