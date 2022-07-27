@@ -5,16 +5,15 @@
 
 class Sphere : public Shape {
 public:
-    Sphere(const Point& center, double radius)
-        : center(center), radius(radius) { }
-
+    Sphere(const Matrix4x4& obj_to_world, double radius)
+        : Shape(obj_to_world), radius(radius) { }
+    
     bool intersects(const Ray& r, std::vector<Intersection>& solns) const override;
 
     // Public Sphere data
-    Point center;
     double radius;
 };
 
-std::shared_ptr<Shape> create_sphere(const Point& center, double radius);
+std::shared_ptr<Shape> create_sphere(const Matrix4x4& obj_to_world, double radius);
 
 #endif // SPHERE_H

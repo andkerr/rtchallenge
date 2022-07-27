@@ -1,5 +1,6 @@
 #include "matrix.h"
 
+#include <cassert>
 #include <iostream>
 
 Matrix4x4::Matrix4x4(double m_in[4][4]) {
@@ -34,7 +35,7 @@ Matrix4x4::Matrix4x4(double m00, double m01, double m02, double m03,
 
 // Matrix Inversion from Gauss-Jordan elimination,
 // from Numerical Recipes (not my own code).
-Matrix4x4 Matrix4x4::inverse() {
+Matrix4x4 Matrix4x4::inverse() const {
     int indxc[4], indxr[4];
     int ipiv[4] = {0, 0, 0, 0};
     double minv[4][4];

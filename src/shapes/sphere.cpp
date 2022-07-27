@@ -6,10 +6,11 @@ struct QuadraticCoeffs {
 };
 
 static void compute_quadratic_coeffs(const Ray& r, const Sphere& s, QuadraticCoeffs& coeffs) {
-    Vector center_to_origin = r.origin - s.center;
-    coeffs.a = r.direction.magnitudeSquared();
-    coeffs.b = 2 * r.direction.dot(center_to_origin);
-    coeffs.c = center_to_origin.magnitudeSquared() - (s.radius * s.radius);
+    Ray r_obj = r.transform(s.obj_to_world.inverse());
+    Vector s_to_r = r_obj.origin - Point(0, 0, 0);
+    coeffs.a = r_obj.direction.magnitudeSquared();
+    coeffs.b = 2 * r_obj.direction.dot(s_to_r);
+    coeffs.c = s_to_r.magnitudeSquared() - (s.radius * s.radius);
 }
 
 bool Sphere::intersects(const Ray& r, std::vector<Intersection>& solns) const {
@@ -22,12 +23,12 @@ bool Sphere::intersects(const Ray& r, std::vector<Intersection>& solns) const {
     else {
         double t1 = (-coeffs.b - sqrt(discrim)) / (2*coeffs.a);
         double t2 = (-coeffs.b + sqrt(discrim)) / (2*coeffs.a);
-        solns.push_back(Intersection(t1, create_sphere(center, radius)));
-        solns.push_back(Intersection(t2, create_sphere(center, radius)));
+        solns.push_back(Intersection(t1, create_sphere(obj_to_world, radius)));
+        solns.push_back(Intersection(t2, create_sphere(obj_to_world, radius)));
         return true;
     }
 }
 
-std::shared_ptr<Shape> create_sphere(const Point& center, double radius) {
-    return std::make_shared<Sphere>(center, radius);
+std::shared_ptr<Shape> create_sphere(const Matrix4x4& obj_to_world, double radius) {
+    return std::make_shared<Sphere>(obj_to_world, radius);
 }
