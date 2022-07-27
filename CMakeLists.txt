@@ -1,20 +1,22 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.23)
 PROJECT(rtchallenge)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 
-INCLUDE_DIRECTORIES(src)
+INCLUDE_DIRECTORIES(
+    src
+    src/shapes
+)
 
 ADD_LIBRARY(canvas src/canvas.cpp)
 ADD_LIBRARY(double src/double.cpp)
 ADD_LIBRARY(geometry src/geometry.cpp)
 ADD_LIBRARY(matrix src/matrix.cpp)
-ADD_LIBRARY(primitives src/primitives.cpp)
+ADD_LIBRARY(shape src/shape.cpp)
+ADD_LIBRARY(sphere src/shapes/sphere.cpp)
 ADD_LIBRARY(transform src/transform.cpp)
 
 # Unit Tests
-
-# FIND_PACKAGE(Catch2 3 REQUIRED)
 
 Include(FetchContent)
 
@@ -34,7 +36,8 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     double
     geometry
     matrix
-    primitives
+    shape
+    sphere
     transform
 )
 

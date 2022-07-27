@@ -1,4 +1,5 @@
-#include "primitives.h"
+#include "shape.h"
+#include "sphere.h"
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -28,45 +29,48 @@ TEST_CASE("Primitives tests") {
         Ray r(Point(0, 0, -5), Vector(0, 0, 1));
         Sphere s(Point(0, 0, 0), 1.0);
 
-        Intersection solns;
-        REQUIRE(r.intersects(s, solns) == true);
-        REQUIRE(solns.t1 == 4);
-        REQUIRE(solns.t2 == 6);
+        std::vector<Intersection> solns;
+        REQUIRE(s.intersects(r, solns) == true);
+        REQUIRE(solns[0].t == 4);
+        REQUIRE(solns[1].t == 6);
 
         r = Ray(Point(0, 1, -5), Vector(0, 0, 1));
-        REQUIRE(r.intersects(s, solns) == true);
-        REQUIRE(solns.t1 == 5);
-        REQUIRE(solns.t2 == 5);
+        solns.clear();
+        REQUIRE(s.intersects(r, solns) == true);
+        REQUIRE(solns[0].t == 5);
+        REQUIRE(solns[1].t == 5);
 
         r = Ray(Point(0, 2, -5), Vector(0, 0, 1));
-        REQUIRE(r.intersects(s, solns) == false);
+        solns.clear();
+        REQUIRE(s.intersects(r, solns) == false);
     }
 
     SECTION("Rays that originate inside a Sphere intersect with it upon exiting") {
         Ray r(Point(0, 0, 0), Vector(0, 0, 1));
         Sphere s(Point(0, 0, 0), 1);
 
-        Intersection solns;
-        REQUIRE(r.intersects(s, solns) == true);
-        REQUIRE(solns.t1 == -1);
-        REQUIRE(solns.t2 == 1);
+        std::vector<Intersection> solns;
+        REQUIRE(s.intersects(r, solns) == true);
+        REQUIRE(solns[0].t == -1);
+        REQUIRE(solns[1].t == 1);
     }
 
     SECTION("Rays extend in both the positive and negative direction of their direction vectors") {
         Ray r(Point(0, 0, 2), Vector(0, 0, 1));
         Sphere s(Point(0, 0, 0), 1);
 
-        Intersection soln;
+        std::vector<Intersection> solns;
+        REQUIRE(s.intersects(r, solns) == true);
+        REQUIRE(solns[0].t == -3);
+        REQUIRE(solns[1].t == -1);
     }
 
-    SECTION("The Intersection object incapsulates t values, and the object that a given Ray intersects with") {
-        const Sphere s(Point(1, 3, 4), 5.3);
-        double t1 = 1.5;
-        double t2 = -4;
+    SECTION("The Intersection object incapsulates a single t value, and the object that a given Ray intersects with") {
+        std::shared_ptr<Shape> sptr = create_sphere(Point(0, 0, 0), 4);
+        double t = 1.5;
+        Intersection i(t, sptr);
 
-        Intersection i;
-        i.obj = &s;
-
-        REQUIRE(*(i.obj) == s);
+        REQUIRE(i.t == 1.5);
+        REQUIRE(i.obj == sptr);
     }
 }
