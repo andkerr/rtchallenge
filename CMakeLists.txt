@@ -9,6 +9,7 @@ ADD_LIBRARY(canvas src/canvas.cpp)
 ADD_LIBRARY(double src/double.cpp)
 ADD_LIBRARY(geometry src/geometry.cpp)
 ADD_LIBRARY(matrix src/matrix.cpp)
+ADD_LIBRARY(primitives src/primitives.cpp)
 ADD_LIBRARY(transform src/transform.cpp)
 
 # Unit Tests
@@ -33,6 +34,7 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     double
     geometry
     matrix
+    primitives
     transform
 )
 

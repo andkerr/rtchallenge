@@ -72,7 +72,7 @@ public:
         : Tuple(x, y, z, 0) { }
 
     Vector(const Tuple& t) {
-        if(!doubleEqual(t.w, 0)) {
+        if(t.w != 0) {
             throw std::invalid_argument("Vector cannot be constructed from Tuple if w != 0");
         }
 
@@ -114,19 +114,13 @@ public:
         : Tuple(x, y, z, 1) { }
 
     Point(const Tuple& t) {
-        if (!doubleEqual(t.w, 1.0)) {
+        if (t.w != 1) {
             throw std::invalid_argument("Point cannot be constructed from Tuple if w != 1");
         }
         x = t.x;
         y = t.y;
         z = t.z;
         w = t.w;
-    }
-
-    Point operator+(const Vector& rhs) const {
-        return Point(x + rhs.x,
-                     y + rhs.y,
-                     z + rhs.z);
     }
 };
 
