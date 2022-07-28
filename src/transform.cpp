@@ -1,5 +1,7 @@
 #include "transform.h"
 
+#include <exception>
+
 Matrix4x4 Transform::translate(double x, double y, double z) {
     Matrix4x4 result;
     result.m[0][3] = x;
@@ -9,6 +11,10 @@ Matrix4x4 Transform::translate(double x, double y, double z) {
 }
 
 Matrix4x4 Transform::scale(double x, double y, double z) {
+    if (x == 0 || y == 0 || z == 0) {
+        throw std::invalid_argument("Objects cannot be scaled by a factor of 0");
+    }
+
     Matrix4x4 result;
     result.m[0][0] = x;
     result.m[1][1] = y;
