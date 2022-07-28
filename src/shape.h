@@ -41,6 +41,8 @@ public:
 
     virtual bool intersects(const Ray& r, std::vector<Intersection>& solns) const = 0;
 
+    virtual Vector normal(const Point& p) const = 0;
+
     // Public Shape data
     const Matrix4x4 obj_to_world;
 };

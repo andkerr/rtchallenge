@@ -10,6 +10,8 @@ public:
     
     bool intersects(const Ray& r, std::vector<Intersection>& solns) const override;
 
+    Vector normal(const Point& p) const override;
+
     // Public Sphere data
     double radius;
 };

@@ -1,6 +1,8 @@
 #include "shape.h"
 #include "shapes/sphere.h"
 
+#include <exception>
+
 struct QuadraticCoeffs {
     double a, b, c;
 };
@@ -36,6 +38,15 @@ bool Sphere::intersects(const Ray& r, std::vector<Intersection>& solns) const {
         solns.push_back(Intersection(t2, create_sphere(obj_to_world, radius)));
         return true;
     }
+}
+
+Vector Sphere::normal(const Point& p) const {
+    Matrix4x4 world_to_obj = obj_to_world.inverse();
+    Point p_object = world_to_obj.mul(p);
+    Vector norm_obj = p_object - Point(0, 0, 0);
+    Vector norm_world = world_to_obj.transpose().mul(norm_obj);
+    norm_world.w = 0;
+    return norm_world.normalize();
 }
 
 std::shared_ptr<Shape> create_sphere(const Matrix4x4& obj_to_world, double radius) {
