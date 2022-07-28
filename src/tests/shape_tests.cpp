@@ -169,4 +169,14 @@ TEST_CASE("Primitives tests") {
         REQUIRE(normal == Vector(0, 0.97014, -0.24254));
         REQUIRE(normal.magnitude() == 1);
     }
+
+    SECTION("Vectors are relfected about a Shape's normal vector at a given point") {
+        Vector v(1, -1, 0);
+        Vector n(0, 1, 0);
+        REQUIRE(reflect(v, n) == Vector(1, 1, 0));
+    
+        v = Vector(0, -1, 0);
+        n = Vector(sqrt(2) / 2, sqrt(2) / 2, 0);
+        REQUIRE(reflect(v, n) == Vector(1, 0, 0));
+    }
 }

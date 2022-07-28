@@ -49,6 +49,11 @@ Vector Sphere::normal(const Point& p) const {
     return norm_world.normalize();
 }
 
+Vector Sphere::reflect(const Ray& r, const Point& p) const {
+    Vector normal = Sphere::normal(p);
+    return r.direction - normal * normal.dot(r.direction) * 2;
+}
+
 std::shared_ptr<Shape> create_sphere(const Matrix4x4& obj_to_world, double radius) {
     return std::make_shared<Sphere>(obj_to_world, radius);
 }

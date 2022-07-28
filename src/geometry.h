@@ -51,11 +51,11 @@ public:
         return Tuple(-x, -y, -z, -w);
     }
 
-    Tuple operator*(double s) {
+    Tuple operator*(double s) const {
         return Tuple(x * s, y * s, z * s, w * s);
     }
 
-    Tuple operator/(double s) {
+    Tuple operator/(double s) const {
         return Tuple(x / s, y / s, z / s, w / s);
     }
 
@@ -68,6 +68,9 @@ std::ostream &operator<<(std::ostream& os, const Tuple& t);
 
 class Vector : public Tuple {
 public:
+    Vector()
+        : Tuple(0, 0, 0, 0) { }
+
     Vector(double x, double y, double z)
         : Tuple(x, y, z, 0) { }
 
@@ -108,8 +111,13 @@ public:
     }
 };
 
+Vector reflect(const Vector& v_in, const Vector& normal);
+
 class Point : public Tuple {
 public:
+    Point()
+        : Tuple(0, 0, 0, 1) { }
+
     Point(double x, double y, double z)
         : Tuple(x, y, z, 1) { }
 

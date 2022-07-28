@@ -2,6 +2,7 @@
 #define PRIMITIVES_H
 
 #include "geometry.h"
+#include "material.h"
 #include "matrix.h"
 
 #include <exception>
@@ -41,10 +42,16 @@ public:
 
     virtual bool intersects(const Ray& r, std::vector<Intersection>& solns) const = 0;
 
+    // 7/28: It might make sense to move these elsewhere
     virtual Vector normal(const Point& p) const = 0;
+    virtual Vector reflect(const Ray& r, const Point& p) const = 0;
 
     // Public Shape data
     const Matrix4x4 obj_to_world;
+
+    // It might be advisable to create an additional class at some point
+    // for objects that combine a Shape and a Material (a la pbrt's 'Primitive')
+    const Material material;
 };
 
 struct Intersection {
