@@ -37,8 +37,8 @@ class Shape {
 public:
     Shape() = default;
 
-    Shape(const Matrix4x4& obj_to_world)
-        : obj_to_world(obj_to_world) { }
+    Shape(const Matrix4x4& obj_to_world, const Material& material)
+        : obj_to_world(obj_to_world), material(material) { }
 
     virtual bool intersects(const Ray& r, std::vector<Intersection>& solns) const = 0;
 

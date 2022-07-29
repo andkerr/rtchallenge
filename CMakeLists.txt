@@ -12,6 +12,7 @@ INCLUDE_DIRECTORIES(
 ADD_LIBRARY(canvas src/canvas.cpp)
 ADD_LIBRARY(double src/double.cpp)
 ADD_LIBRARY(geometry src/geometry.cpp)
+ADD_LIBRARY(light src/light.cpp)
 ADD_LIBRARY(matrix src/matrix.cpp)
 ADD_LIBRARY(shape src/shape.cpp)
 ADD_LIBRARY(sphere src/shapes/sphere.cpp)
@@ -36,6 +37,7 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     canvas
     double
     geometry
+    light
     matrix
     shape
     sphere
@@ -63,6 +65,18 @@ TARGET_LINK_LIBRARIES(sphere_silhouette.exe
     canvas
     double
     geometry
+    matrix
+    shape
+    sphere
+    transform
+)
+
+ADD_EXECUTABLE(sphere_reflection.exe demos/sphere_reflection.cpp)
+TARGET_LINK_LIBRARIES(sphere_reflection.exe
+    canvas
+    double
+    geometry
+    light
     matrix
     shape
     sphere

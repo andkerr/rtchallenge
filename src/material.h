@@ -20,6 +20,13 @@ public:
           shininess(DEFAULT_SHININESS),
           colour(DEFAULT_COLOUR) { }
 
+    Material(const Colour& c)
+        : ambient(DEFAULT_AMBIENCE),
+          diffuse(DEFAULT_DIFFUSE),
+          specular(DEFAULT_SPECULAR),
+          shininess(DEFAULT_SHININESS),
+          colour(c) { }
+
     Material(double ambient, double diffuse, double specular, double shininess, const Colour& c)
         : ambient(ambient),
           diffuse(diffuse),
@@ -38,7 +45,7 @@ public:
             if (shininess < 0) {
                 throw std::invalid_argument("Material shininess must be non-negative");
             }
-        }
+    }
 
     double ambient, diffuse, specular, shininess;
     Colour colour;

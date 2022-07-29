@@ -44,9 +44,14 @@ Vector Sphere::normal(const Point& p) const {
     Matrix4x4 world_to_obj = obj_to_world.inverse();
     Point p_object = world_to_obj.mul(p);
     Vector norm_obj = p_object - Point(0, 0, 0);
-    Vector norm_world = world_to_obj.transpose().mul(norm_obj);
+
+    // This is a bit hacky. The transpose messes with norm_world's w
+    // component, which needs to be reset to 0 before it can be stored
+    // in a Vector
+    Tuple norm_world = world_to_obj.transpose().mul(norm_obj);
     norm_world.w = 0;
-    return norm_world.normalize();
+    Vector result = norm_world;
+    return result.normalize();
 }
 
 Vector Sphere::reflect(const Ray& r, const Point& p) const {
@@ -54,6 +59,8 @@ Vector Sphere::reflect(const Ray& r, const Point& p) const {
     return r.direction - normal * normal.dot(r.direction) * 2;
 }
 
-std::shared_ptr<Shape> create_sphere(const Matrix4x4& obj_to_world, double radius) {
-    return std::make_shared<Sphere>(obj_to_world, radius);
+std::shared_ptr<Shape> create_sphere(const Matrix4x4& obj_to_world,
+                                     double radius,
+                                     const Material& material) {
+    return std::make_shared<Sphere>(obj_to_world, radius, material);
 }

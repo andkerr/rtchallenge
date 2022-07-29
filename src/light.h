@@ -1,8 +1,9 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include "geometry.h"
 #include "colour.h"
+#include "geometry.h"
+#include "material.h"
 
 class Light {
 public:
@@ -23,5 +24,11 @@ public:
     PointLight(const Point& p, const Colour& i)
         : Light(p, i) { }
 };
+
+Colour lighting(const Material& m,
+                const Light* light,
+                const Point& pos,
+                const Vector& camera,
+                const Vector& normal);
 
 #endif // LIGHT_H
