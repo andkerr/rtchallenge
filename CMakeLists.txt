@@ -17,6 +17,7 @@ ADD_LIBRARY(matrix src/matrix.cpp)
 ADD_LIBRARY(shape src/shape.cpp)
 ADD_LIBRARY(sphere src/shapes/sphere.cpp)
 ADD_LIBRARY(transform src/transform.cpp)
+ADD_LIBRARY(world src/world.cpp)
 
 # Unit Tests
 
@@ -42,6 +43,7 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     shape
     sphere
     transform
+    world
 )
 
 ADD_EXECUTABLE(projectile.exe demos/projectile.cpp)

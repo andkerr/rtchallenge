@@ -9,7 +9,7 @@
 #include <vector>
 
 int main() {
-    int canvas_size = 200;
+    int canvas_size = 400;
     int wall_size = 10;
 
     Canvas canvas(canvas_size, canvas_size);
@@ -17,9 +17,10 @@ int main() {
     double pixel_size = (double) wall_size / canvas_size;
 
     Matrix4x4 transform = Transform::translate(wall_size / 2., wall_size / 2., 10);
-    std::shared_ptr<Shape> s = create_sphere(transform, 1, Material(Colour(1, 0.2, 1)));
+    std::shared_ptr<Shape> s = create_sphere(transform, 1);
+    s->material = Material(Colour(0.2, 0.4, 1));
 
-    PointLight light(Point(-1, 1, -1), Colour(1, 1, 1));
+    PointLight light(Point(0, 0, 15), Colour(1, 1, 1));
 
     Point ray_origin = Point(wall_size / 2, wall_size / 2, 15);
     for (int y = 0; y < canvas_size; ++y) {

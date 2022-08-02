@@ -60,7 +60,6 @@ Vector Sphere::reflect(const Ray& r, const Point& p) const {
 }
 
 std::shared_ptr<Shape> create_sphere(const Matrix4x4& obj_to_world,
-                                     double radius,
-                                     const Material& material) {
-    return std::make_shared<Sphere>(obj_to_world, radius, material);
+                                     double radius) {
+    return std::make_shared<Sphere>(obj_to_world, radius);
 }

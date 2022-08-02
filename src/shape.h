@@ -37,8 +37,10 @@ class Shape {
 public:
     Shape() = default;
 
-    Shape(const Matrix4x4& obj_to_world, const Material& material)
-        : obj_to_world(obj_to_world), material(material) { }
+    Shape(const Matrix4x4& obj_to_world)
+        : obj_to_world(obj_to_world) { }
+
+    virtual ~Shape() = default;
 
     virtual bool intersects(const Ray& r, std::vector<Intersection>& solns) const = 0;
 
@@ -51,7 +53,7 @@ public:
 
     // It might be advisable to create an additional class at some point
     // for objects that combine a Shape and a Material (a la pbrt's 'Primitive')
-    const Material material;
+    Material material;
 };
 
 struct Intersection {
