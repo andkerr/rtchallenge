@@ -10,4 +10,7 @@ Completed Sections:
 -   Drawing on a Canvas
 -   Matrices
 -   Matrix Transformations
+-   Ray-Sphere Intersections
+-   Light and Shading
 
+![sadf](images/sphere_reflection.png)
