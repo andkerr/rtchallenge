@@ -3,10 +3,22 @@
 #include "transform.h"
 #include "world.h"
 
-#include <cassert>
+#include <algorithm>
 
-std::vector<Intersection> intersect(const Ray& r) {
-    assert(false);
+std::vector<Intersection> World::intersect(const Ray& r) {
+    std::vector<Intersection> result;
+    std::vector<Intersection> solns;
+    for (const std::shared_ptr<Shape> s : objects) {
+        if (s->intersects(r, solns)) {
+            for (const Intersection& solution : solns) {
+                result.push_back(solution);
+            }
+            solns.clear();
+        }
+    }
+
+    std::sort(result.begin(), result.end());
+    return result;
 }
 
 std::shared_ptr<World> create_dummy_world() {

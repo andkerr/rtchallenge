@@ -67,6 +67,10 @@ struct Intersection {
         return (t == rhs.t) && (obj == rhs.obj);
     }
 
+    bool operator<(const Intersection& rhs) const {
+        return t < rhs.t;
+    }
+
     double t;
     std::shared_ptr<Shape> obj;
 };
