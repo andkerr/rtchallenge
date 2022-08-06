@@ -1,6 +1,8 @@
 #include "geometry.h"
 #include "light.h"
 
+#include <iostream>
+
 Colour lighting(const Material& m,
                 const Light* light,
                 const Point& pos,

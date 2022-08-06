@@ -10,7 +10,7 @@ public:
     
     bool intersects(const Ray& r, std::vector<Intersection>& solns) const override;
 
-    Vector normal(const Point& p) const override;
+    Vector normal_at(const Point& p) const override;
     Vector reflect(const Ray& r, const Point& p) const override;
 
     // Public Sphere data

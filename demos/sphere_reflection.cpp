@@ -37,7 +37,7 @@ int main() {
             if (s->intersects(ray, solns)) {
                 find_hit(solns, hit);
                 Point point_to_colour = ray_origin + ray_dir * hit.t;
-                Vector normal = s->normal(point_to_colour);
+                Vector normal = s->normal_at(point_to_colour);
                 Vector camera = -ray_dir;
                 Colour c = lighting(s->material, &light, point_to_colour, camera, normal);
                 canvas.set_pixel(x, y, c);

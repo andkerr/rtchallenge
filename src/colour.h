@@ -3,6 +3,8 @@
 
 #include "double.h"
 
+#include <iostream>
+
 class Colour {
 public:
     Colour()
@@ -45,5 +47,7 @@ public:
     // Colour public data
     double r, g, b;
 };
+
+std::ostream& operator<<(std::ostream& os, const Colour& c);
 
 #endif // COLOUR_H

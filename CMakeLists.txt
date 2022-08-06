@@ -10,6 +10,7 @@ INCLUDE_DIRECTORIES(
 )
 
 ADD_LIBRARY(canvas src/canvas.cpp)
+ADD_LIBRARY(colour src/colour.cpp)
 ADD_LIBRARY(double src/double.cpp)
 ADD_LIBRARY(geometry src/geometry.cpp)
 ADD_LIBRARY(light src/light.cpp)
@@ -36,6 +37,7 @@ ADD_EXECUTABLE(rtc_test.exe ${TEST_SOURCE})
 TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     Catch2::Catch2WithMain
     canvas
+    colour
     double
     geometry
     light
@@ -49,6 +51,7 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
 ADD_EXECUTABLE(projectile.exe demos/projectile.cpp)
 TARGET_LINK_LIBRARIES(projectile.exe
     canvas
+    colour
     double
     geometry
 )
@@ -56,6 +59,7 @@ TARGET_LINK_LIBRARIES(projectile.exe
 ADD_EXECUTABLE(clock.exe demos/clock.cpp)
 TARGET_LINK_LIBRARIES(clock.exe
     canvas
+    colour
     double
     geometry
     matrix
@@ -65,6 +69,7 @@ TARGET_LINK_LIBRARIES(clock.exe
 ADD_EXECUTABLE(sphere_silhouette.exe demos/sphere_silhouette.cpp)
 TARGET_LINK_LIBRARIES(sphere_silhouette.exe
     canvas
+    colour
     double
     geometry
     matrix
@@ -76,6 +81,7 @@ TARGET_LINK_LIBRARIES(sphere_silhouette.exe
 ADD_EXECUTABLE(sphere_reflection.exe demos/sphere_reflection.cpp)
 TARGET_LINK_LIBRARIES(sphere_reflection.exe
     canvas
+    colour
     double
     geometry
     light

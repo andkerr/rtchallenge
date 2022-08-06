@@ -7,6 +7,18 @@
 #include <memory>
 #include <vector>
 
+struct IntersectionComps {
+    IntersectionComps(const Ray& r, const Intersection& i);
+
+    // Public IntersectionComps data
+    double t;
+    std::shared_ptr<Shape> obj;
+    Point point;
+    Vector v_eye;
+    Vector v_normal;
+    bool inside;
+};
+
 class World {
 public:
     World()
@@ -30,6 +42,10 @@ public:
     }
 
     std::vector<Intersection> intersect(const Ray& r);
+
+    Colour shade_hit(const IntersectionComps& icomps);
+
+    Colour colour_at(const Ray& r);
 
     // Public World data
     std::vector< std::shared_ptr<Shape>> objects;

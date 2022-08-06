@@ -45,7 +45,7 @@ public:
     virtual bool intersects(const Ray& r, std::vector<Intersection>& solns) const = 0;
 
     // 7/28: It might make sense to move these elsewhere
-    virtual Vector normal(const Point& p) const = 0;
+    virtual Vector normal_at(const Point& p) const = 0;
     virtual Vector reflect(const Ray& r, const Point& p) const = 0;
 
     // Public Shape data

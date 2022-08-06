@@ -136,19 +136,19 @@ TEST_CASE("Primitives tests") {
     SECTION("The normal vector at a given point on a Sphere points perpendicular to its surface") {
         Sphere s(Matrix4x4(), 1);
 
-        Vector normal = s.normal(Point(1, 0, 0));
+        Vector normal = s.normal_at(Point(1, 0, 0));
         REQUIRE(normal == Vector(1, 0, 0));
         REQUIRE(normal.magnitude() == 1);
 
-        normal = s.normal(Point(0, -1, 0));
+        normal = s.normal_at(Point(0, -1, 0));
         REQUIRE(normal == Vector(0, -1, 0));
         REQUIRE(normal.magnitude() == 1);
 
-        normal = s.normal(Point(0, 0, 1));
+        normal = s.normal_at(Point(0, 0, 1));
         REQUIRE(normal == Vector(0, 0, 1));
         REQUIRE(normal.magnitude() == 1);
         
-        normal = s.normal(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
+        normal = s.normal_at(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
         REQUIRE(normal == Vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
         REQUIRE(normal.magnitude() == 1);
     }
@@ -157,7 +157,7 @@ TEST_CASE("Primitives tests") {
         Matrix4x4 translate = Transform::translate(0, 1, 0);
         Sphere s(translate, 1);
 
-        Vector normal = s.normal(Point(0, 1.70711, -0.70711));
+        Vector normal = s.normal_at(Point(0, 1.70711, -0.70711));
         REQUIRE(normal == Vector(0, 0.70711, -0.70711));
         REQUIRE(normal.magnitude() == 1);
 
@@ -165,7 +165,7 @@ TEST_CASE("Primitives tests") {
         Matrix4x4 t = Transform::scale(1, 0.5, 1).mul(Transform::rotate_z(M_PI / 5));
         Sphere s2(t, 1);
         
-        normal = s2.normal(Point(0, sqrt(2) / 2, -sqrt(2) / 2));
+        normal = s2.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2));
         REQUIRE(normal == Vector(0, 0.97014, -0.24254));
         REQUIRE(normal.magnitude() == 1);
     }
