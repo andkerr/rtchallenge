@@ -6,7 +6,7 @@
 #include "matrix.h"
 
 #include <exception>
-#include <memory> // shared_ptr
+#include <memory>
 #include <vector>
 
 struct Intersection;

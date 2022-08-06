@@ -9,6 +9,7 @@ INCLUDE_DIRECTORIES(
     src/shapes
 )
 
+ADD_LIBRARY(camera src/camera.cpp)
 ADD_LIBRARY(canvas src/canvas.cpp)
 ADD_LIBRARY(colour src/colour.cpp)
 ADD_LIBRARY(double src/double.cpp)
@@ -37,6 +38,7 @@ ADD_EXECUTABLE(rtc_test.exe ${TEST_SOURCE})
 TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     Catch2::Catch2WithMain
     canvas
+    camera
     colour
     double
     geometry
