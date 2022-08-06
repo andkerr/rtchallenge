@@ -16,11 +16,13 @@ int main() {
 
     double pixel_size = (double) wall_size / canvas_size;
 
-    Matrix4x4 transform = Transform::translate(wall_size / 2., wall_size / 2., 10);
+    Matrix4x4 transform = Transform::translate(wall_size / 2.,
+                                               wall_size / 2.,
+                                               10);
     std::shared_ptr<Shape> s = create_sphere(transform, 1);
     s->material = Material(Colour(0.2, 0.4, 1));
 
-    PointLight light(Point(0, 0, 15), Colour(1, 1, 1));
+    PointLight light(Point(2.5, 2.5, 15), Colour(1, 1, 1));
 
     Point ray_origin = Point(wall_size / 2, wall_size / 2, 15);
     for (int y = 0; y < canvas_size; ++y) {
