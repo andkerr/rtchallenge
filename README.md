@@ -12,5 +12,6 @@ Completed Sections:
 -   Matrix Transformations
 -   Ray-Sphere Intersections
 -   Light and Shading
+-   Making a Scene
 
-![sadf](images/sphere_reflection.png)
+![sadf](images/world_demo.png)
