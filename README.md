@@ -14,4 +14,6 @@ Completed Sections:
 -   Light and Shading
 -   Making a Scene
 
+Most recently-rendered image:
+
 ![sadf](images/world_demo.png)
