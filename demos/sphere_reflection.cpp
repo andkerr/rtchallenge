@@ -41,7 +41,7 @@ int main() {
                 Point point_to_colour = ray_origin + ray_dir * hit.t;
                 Vector normal = s->normal_at(point_to_colour);
                 Vector camera = -ray_dir;
-                Colour c = lighting(s->material, &light, point_to_colour, camera, normal);
+                Colour c = lighting(s->material, &light, point_to_colour, camera, normal, false);
                 canvas.set_pixel(x, y, c);
             }
         }

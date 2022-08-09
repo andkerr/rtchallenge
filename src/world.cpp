@@ -16,6 +16,8 @@ IntersectionComps::IntersectionComps(const Ray& r, const Intersection& i) {
     if (inside) {
         v_normal = -v_normal;
     }
+
+    over_point = point + v_normal * EPSILON;
 }
 
 std::vector<Intersection> World::intersect(const Ray& r) const {
@@ -34,23 +36,41 @@ std::vector<Intersection> World::intersect(const Ray& r) const {
     return result;
 }
 
+bool World::is_shadowed(const Point& p) const {
+    Vector v_light = Vector(light->position - p);
+    double distance_to_light = Vector(light->position - p).magnitude();
+    Vector dir_light = v_light.normalize();
+
+    Ray ray_to_light(p, dir_light);
+
+    std::vector<Intersection> isections = intersect(ray_to_light);
+    Intersection hit;
+    bool has_hit = find_hit(isections, hit);
+    if (has_hit && (hit.t < distance_to_light)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 Colour World::shade_hit(const IntersectionComps& icomps) const {
+    bool in_shadow = is_shadowed(icomps.over_point);
+
     return lighting(icomps.obj->material,
                     light.get(),
-                    icomps.point,
+                    icomps.over_point,
                     icomps.v_eye,
-                    icomps.v_normal);
+                    icomps.v_normal,
+                    in_shadow);
 }
 
 Colour World::colour_at(const Ray& r) const {
     std::vector<Intersection> isections = intersect(r);
-    if (isections.size() == 0) {
-        return Colour(0, 0, 0);
-    }
 
     Intersection hit;
     if (!find_hit(isections, hit)) {
-        assert(false);
+        return Colour(0, 0, 0);
     }
     return shade_hit(IntersectionComps(r, hit));
 }

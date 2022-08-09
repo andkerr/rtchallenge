@@ -124,4 +124,59 @@ TEST_CASE("World tests") {
 
         REQUIRE(c == inner->material.colour);
     }
+
+    SECTION("There is no shadow when nothing is collinear with a Point and the (single) Light source") {
+        std::shared_ptr<World> w = create_dummy_world();
+        Point p(0, 10, 0);
+
+        REQUIRE(w->is_shadowed(p) == false);
+    }
+
+    SECTION("A point is in shadow when a Shape is located in the path from the Light source to it") {
+        std::shared_ptr<World> w = create_dummy_world();
+        Point p(10, -10, 10);
+
+        REQUIRE(w->is_shadowed(p) == true);
+    }
+
+    SECTION("A Point is not in shadow if nothing lies between it and the (single) Light source") {
+        std::shared_ptr<World> w = create_dummy_world();
+        Point p(-20, 20, -20);
+
+        // Light, Point, and Shape are collinear. Light between Point and Shape
+        REQUIRE(w->is_shadowed(p) == false);
+
+        // Light, Point, and Shape are collinear. Point between Light and Shape
+        p = Point(-2, 2, -2);
+        REQUIRE(w->is_shadowed(p) == false);
+    }
+
+    SECTION("shade_hit considers intersections that are in shadow") {
+        std::shared_ptr<World> w(new World);
+        w->light = std::make_shared<Light>(PointLight(Point(0, 0, -10), Colour(1, 1, 1)));
+
+        std::shared_ptr<Shape> s1 = create_sphere(Matrix4x4(), 1);
+        w->add_shape(s1);
+
+        std::shared_ptr<Shape> s2 = create_sphere(Transform::translate(0, 0, 10), 1);
+        w->add_shape(s2);
+
+        Ray r(Point(0, 0, 5), Vector(0, 0, 1));
+        Intersection i(4, s2);
+        IntersectionComps icomps(r, i);
+
+        Colour c = w->shade_hit(icomps);
+        REQUIRE(c == Colour(0.1, 0.1, 0.1));
+    }
+
+    SECTION("Hit points are offset slightly in the direction of their normal vectors. This guards against"
+            "self-shadowing due to floating point error.") {
+        Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+        std::shared_ptr<Shape> s = create_sphere(Transform::translate(0, 0, 1), 1);
+        Intersection i(5, s);
+        IntersectionComps icomps (r, i);
+
+        REQUIRE(icomps.over_point.z < -EPSILON / 2.);
+        REQUIRE(icomps.point.z > icomps.over_point.z);
+    }
 }

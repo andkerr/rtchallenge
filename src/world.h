@@ -14,6 +14,7 @@ struct IntersectionComps {
     double t;
     std::shared_ptr<Shape> obj;
     Point point;
+    Point over_point;
     Vector v_eye;
     Vector v_normal;
     bool inside;
@@ -42,6 +43,8 @@ public:
     }
 
     std::vector<Intersection> intersect(const Ray& r) const;
+
+    bool is_shadowed(const Point& p) const;
 
     Colour shade_hit(const IntersectionComps& icomps) const;
 

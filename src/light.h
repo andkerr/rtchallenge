@@ -29,6 +29,7 @@ Colour lighting(const Material& m,
                 const Light* light,
                 const Point& pos,
                 const Vector& camera,
-                const Vector& normal);
+                const Vector& normal,
+                bool in_shadow);
 
 #endif // LIGHT_H

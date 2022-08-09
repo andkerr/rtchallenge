@@ -16,7 +16,7 @@ TEST_CASE("Light tests") {
         Vector normal(0, 0, -1);
         PointLight p_light(Point(0, 0, -10), Colour(1, 1, 1));
 
-        REQUIRE(lighting(Material(), &p_light, position, camera, normal) == Colour(1.9, 1.9, 1.9));
+        REQUIRE(lighting(Material(), &p_light, position, camera, normal, false) == Colour(1.9, 1.9, 1.9));
     }
 
     SECTION("Camera 45 degrees off reflection vector gives (effectively) 0 specular reflection") {
@@ -25,7 +25,7 @@ TEST_CASE("Light tests") {
         Vector normal(0, 0, -1);
         PointLight p_light(Point(0, 0, -10), Colour(1, 1, 1));
 
-        REQUIRE(lighting(Material(), &p_light, position, camera, normal) == Colour(1., 1., 1.));
+        REQUIRE(lighting(Material(), &p_light, position, camera, normal, false) == Colour(1., 1., 1.));
     }
 
     SECTION("Diffuse reflection drops when a Light move out of the path of the normal vector") {
@@ -34,7 +34,7 @@ TEST_CASE("Light tests") {
         Vector normal(0, 0, -1);
         PointLight p_light(Point(0, 10, -10), Colour(1, 1, 1));
 
-        REQUIRE(lighting(Material(), &p_light, position, camera, normal) == Colour(0.7364, 0.7364, 0.7364));
+        REQUIRE(lighting(Material(), &p_light, position, camera, normal, false) == Colour(0.7364, 0.7364, 0.7364));
     }
 
     SECTION("Camera in path of reflection vector gives full specular reflection") {
@@ -43,7 +43,7 @@ TEST_CASE("Light tests") {
         Vector normal(0, 0, -1);
         PointLight p_light(Point(0, 10, -10), Colour(1, 1, 1));
 
-        REQUIRE(lighting(Material(), &p_light, position, camera, normal) == Colour(1.6364, 1.6364, 1.6364));
+        REQUIRE(lighting(Material(), &p_light, position, camera, normal, false) == Colour(1.6364, 1.6364, 1.6364));
     }
 
     SECTION("If a surface comes between the camera and a point light, only ambient reflection reaches the camera") {
@@ -52,6 +52,15 @@ TEST_CASE("Light tests") {
         Vector normal(0, 0, -1);
         PointLight p_light(Point(0, 10, 10), Colour(1, 1, 1));
 
-        REQUIRE(lighting(Material(), &p_light, position, camera, normal) == Colour(0.1, 0.1, 0.1));       
+        REQUIRE(lighting(Material(), &p_light, position, camera, normal, false) == Colour(0.1, 0.1, 0.1));       
+    }
+
+    SECTION("If an Point is in shadow, only its ambient reflection contributes to its colour") {
+        Point position(0, 0, 0);
+        Vector camera(0, 0, -1);
+        Vector normal(0, 0, -1);
+        PointLight p_light(Point(0, 0, -10), Colour(1, 1, 1));
+
+        REQUIRE(lighting(Material(), &p_light, position, camera, normal, true) == Colour(0.1, 0.1, 0.1));       
     }
 }

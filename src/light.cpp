@@ -7,7 +7,8 @@ Colour lighting(const Material& m,
                 const Light* light,
                 const Point& pos,
                 const Vector& camera,
-                const Vector& normal) {
+                const Vector& normal,
+                bool in_shadow) {
     Colour c_effective, ambient, diffuse, specular;
     c_effective = m.colour * light->intensity;
     ambient = c_effective * m.ambient;
@@ -15,7 +16,7 @@ Colour lighting(const Material& m,
     Vector light_vec = Vector(light->position - pos).normalize();
     double light_dot_normal = light_vec.dot(normal);
     
-    if (light_dot_normal < 0) {
+    if (in_shadow || light_dot_normal < 0) {
         diffuse = Colour(0, 0, 0);
         specular = Colour(0, 0, 0);
     }
