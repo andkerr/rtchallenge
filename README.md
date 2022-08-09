@@ -13,7 +13,8 @@ Completed Sections:
 -   Ray-Sphere Intersections
 -   Light and Shading
 -   Making a Scene
+-   Shadows
 
 Most recently-rendered image:
 
-![sadf](images/world_demo.png)
+![sadf](images/world_demo_shadows.png)
