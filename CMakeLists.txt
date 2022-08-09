@@ -92,3 +92,18 @@ TARGET_LINK_LIBRARIES(sphere_reflection.exe
     sphere
     transform
 )
+
+ADD_EXECUTABLE(world_demo.exe demos/world_demo.cpp)
+TARGET_LINK_LIBRARIES(world_demo.exe
+    canvas
+    camera
+    colour
+    double
+    geometry
+    light
+    matrix
+    shape
+    sphere
+    transform
+    world
+)

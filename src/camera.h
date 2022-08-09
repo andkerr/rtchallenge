@@ -18,9 +18,9 @@ public:
     Camera(int canvas_w, int canvas_h, double field_of_view,
            const Point& from, const Point& to, const Vector& up);
 
-    Ray ray_for(int x_px, int y_px);
+    Ray ray_for(int x_px, int y_px) const ;
 
-    Canvas render(const std::shared_ptr<World> w);
+    Canvas render(const std::shared_ptr<World> w) const;
 
     // Public Camera data
     int canvas_w, canvas_h; // canvas size in screen pixels

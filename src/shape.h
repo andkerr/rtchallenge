@@ -13,6 +13,8 @@ struct Intersection;
 
 class Ray {
 public:
+    Ray() = default;
+
     Ray(const Point& origin, const Vector& direction)
         : origin(origin), direction(direction) { }
 
@@ -38,7 +40,7 @@ public:
     Shape() = default;
 
     Shape(const Matrix4x4& obj_to_world)
-        : obj_to_world(obj_to_world) { }
+        : obj_to_world(obj_to_world), material() { }
 
     virtual ~Shape() = default;
 

@@ -18,7 +18,7 @@ IntersectionComps::IntersectionComps(const Ray& r, const Intersection& i) {
     }
 }
 
-std::vector<Intersection> World::intersect(const Ray& r) {
+std::vector<Intersection> World::intersect(const Ray& r) const {
     std::vector<Intersection> result;
     std::vector<Intersection> solns;
     for (const std::shared_ptr<Shape> s : objects) {
@@ -34,7 +34,7 @@ std::vector<Intersection> World::intersect(const Ray& r) {
     return result;
 }
 
-Colour World::shade_hit(const IntersectionComps& icomps) {
+Colour World::shade_hit(const IntersectionComps& icomps) const {
     return lighting(icomps.obj->material,
                     light.get(),
                     icomps.point,
@@ -42,7 +42,7 @@ Colour World::shade_hit(const IntersectionComps& icomps) {
                     icomps.v_normal);
 }
 
-Colour World::colour_at(const Ray& r) {
+Colour World::colour_at(const Ray& r) const {
     std::vector<Intersection> isections = intersect(r);
     if (isections.size() == 0) {
         return Colour(0, 0, 0);

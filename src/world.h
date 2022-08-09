@@ -41,11 +41,11 @@ public:
         ++n_obj;
     }
 
-    std::vector<Intersection> intersect(const Ray& r);
+    std::vector<Intersection> intersect(const Ray& r) const;
 
-    Colour shade_hit(const IntersectionComps& icomps);
+    Colour shade_hit(const IntersectionComps& icomps) const;
 
-    Colour colour_at(const Ray& r);
+    Colour colour_at(const Ray& r) const;
 
     // Public World data
     std::vector< std::shared_ptr<Shape>> objects;

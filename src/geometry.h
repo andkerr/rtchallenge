@@ -13,7 +13,7 @@ public:
     Tuple()
         : x(0), y(0), z(0), w(0) { }
 
-    Tuple(double x, double y, double z, int w)
+    Tuple(double x, double y, double z, double w)
         : x(x), y(y), z(z), w(w) {
     }
 
@@ -60,8 +60,7 @@ public:
     }
 
     // Public Tuple data
-    double x, y, z;
-    int w;
+    double x, y, z, w;
 };
 
 std::ostream &operator<<(std::ostream& os, const Tuple& t);
@@ -75,14 +74,14 @@ public:
         : Tuple(x, y, z, 0) { }
 
     Vector(const Tuple& t) {
-        if(t.w != 0) {
+        if(!doubleEqual(t.w, 0.)) {
             throw std::invalid_argument("Vector cannot be constructed from Tuple if w != 0");
         }
 
         x = t.x;
         y = t.y;
         z = t.z;
-        w = t.w;
+        w = 0;
     }
 
     double magnitudeSquared() const {
@@ -122,13 +121,13 @@ public:
         : Tuple(x, y, z, 1) { }
 
     Point(const Tuple& t) {
-        if (t.w != 1) {
+        if (!doubleEqual(t.w, 1.)) {
             throw std::invalid_argument("Point cannot be constructed from Tuple if w != 1");
         }
         x = t.x;
         y = t.y;
         z = t.z;
-        w = t.w;
+        w = 1;
     }
 };
 

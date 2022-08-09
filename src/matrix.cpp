@@ -102,6 +102,20 @@ Matrix4x4 Matrix4x4::inverse() const {
     return Matrix4x4(minv);
 }
 
+std::string to_string(const Matrix4x4& mat) {
+    std::string result;
+    for (int i = 0; i < 4; ++i) {
+        result += "[ ";
+        for (int j = 0; j < 4; ++j) {
+            result.push_back(mat.m[i][j]);
+            result.push_back(' ');
+        }
+        result += "]\n";
+    }
+
+    return result;
+}
+
 std::ostream &operator<<(std::ostream& os, const Matrix4x4& mat) {
     os << "[ " << mat.m[0][0] << " " << mat.m[0][1] << " " << mat.m[0][2] << " " << mat.m[0][3] << " ]\n"
        << "[ " << mat.m[1][0] << " " << mat.m[1][1] << " " << mat.m[1][2] << " " << mat.m[1][3] << " ]\n"

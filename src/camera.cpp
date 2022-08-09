@@ -2,6 +2,7 @@
 #include "transform.h"
 
 #include <cmath>
+#include <vector>
 
 void Camera::compute_pixel_size(int width_px, int height_px, double field_of_view) {
     // assume Cameras are positioned 1 world unit in front of their canvases
@@ -44,7 +45,7 @@ Camera::Camera(int canvas_w, int canvas_h, double field_of_view,
     transform = view_transformation(from, to, up);
 }
 
-Ray Camera::ray_for(int x_px, int y_px) {
+Ray Camera::ray_for(int x_px, int y_px) const {
     double offset_x = (x_px + 0.5) * pixel_size;
     double offset_y = (y_px + 0.5) * pixel_size;
 
@@ -60,8 +61,28 @@ Ray Camera::ray_for(int x_px, int y_px) {
     return Ray(origin, direction);
 }
 
-Canvas render(const std::shared_ptr<World> w) {
+Canvas Camera::render(const std::shared_ptr<World> w) const {
+    Canvas result(canvas_w, canvas_h);
+    
+    Ray r;
+    Colour c;
+    Intersection hit;
+    for (int j = 0; j < canvas_h; ++j) {
+        for (int i = 0; i < canvas_w; ++i) {
+            r = ray_for(i, j);
+            std::vector<Intersection> isections = w->intersect(r);
+            
+            if (find_hit(isections, hit)) {
+                c = w->shade_hit(IntersectionComps(r, hit));
+            }
+            else {
+                c = Colour(0, 0, 0);
+            }
+            result.set_pixel(i, j, c);
+        }
+    }
 
+    return result;
 }
 
 Matrix4x4 view_transformation(const Point& from, const Point& to, const Vector& up) {

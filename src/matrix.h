@@ -5,6 +5,7 @@
 #include "geometry.h"
 
 #include <iostream>
+#include <string>
 
 struct Matrix4x4 {
     Matrix4x4() {
@@ -80,7 +81,7 @@ struct Matrix4x4 {
                  m[3][1] * rhs.y +
                  m[3][2] * rhs.z +
                  m[3][3] * rhs.w);
-                
+
         return res;
     }
 
@@ -97,6 +98,8 @@ struct Matrix4x4 {
 
     double m[4][4];
 };
+
+std::string to_string(const Matrix4x4& m);
 
 std::ostream &operator<<(std::ostream& os, const Matrix4x4& mat);
 
