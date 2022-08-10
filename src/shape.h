@@ -52,9 +52,6 @@ public:
 
     // Public Shape data
     const Matrix4x4 obj_to_world;
-
-    // It might be advisable to create an additional class at some point
-    // for objects that combine a Shape and a Material (a la pbrt's 'Primitive')
     Material material;
 };
 

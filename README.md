@@ -17,4 +17,4 @@ Completed Sections:
 
 Most recently-rendered image:
 
-![sadf](images/world_demo_shadows.png)
+![Sample image of spheres and shadows](images/world_demo_shadows.png)

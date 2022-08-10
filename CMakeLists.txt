@@ -16,6 +16,7 @@ ADD_LIBRARY(double src/double.cpp)
 ADD_LIBRARY(geometry src/geometry.cpp)
 ADD_LIBRARY(light src/light.cpp)
 ADD_LIBRARY(matrix src/matrix.cpp)
+ADD_LIBRARY(plane src/shapes/plane.cpp)
 ADD_LIBRARY(shape src/shape.cpp)
 ADD_LIBRARY(sphere src/shapes/sphere.cpp)
 ADD_LIBRARY(transform src/transform.cpp)
@@ -44,6 +45,7 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     geometry
     light
     matrix
+    plane
     shape
     sphere
     transform
