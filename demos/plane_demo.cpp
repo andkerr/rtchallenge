@@ -13,9 +13,20 @@ int main() {
     floor->material.colour = Colour(1, 0.9, 0.9);
     floor->material.specular = 0;
 
-    Matrix4x4 transform = Transform::translate(-0.5, 1, 0.5);
+    Matrix4x4 transform = Transform::translate(0, 0, 8)
+                     .mul(Transform::rotate_y(M_PI / 4))
+                     .mul(Transform::rotate_x(M_PI / 2));
+    std::shared_ptr<Shape> right_wall = create_plane(transform);
+    right_wall->material.specular = 0;
+
+    transform = Transform::translate(0, 0, 8)
+           .mul(Transform::rotate_y(-M_PI / 4))
+           .mul(Transform::rotate_x(M_PI / 2));
+    std::shared_ptr<Shape> left_wall = create_plane(transform);
+    left_wall->material.specular = 0;
+
+    transform = Transform::translate(-0.5, 1, 0.5);
     std::shared_ptr<Shape> middle = create_sphere(transform, 1);
-    // middle->material = Material();
     middle->material.colour = Colour(0.1, 1, 0.5);
     middle->material.diffuse = 0.7;
     middle->material.specular = 0.3;
@@ -37,11 +48,13 @@ int main() {
     World w;
     w.light = std::make_shared<Light>(PointLight(Point(-10, 10, -10), Colour(1, 1, 1)));
     w.add_shape(floor);
+    w.add_shape(left_wall);
+    w.add_shape(right_wall);
     w.add_shape(left);
     w.add_shape(middle);
     w.add_shape(right);
 
-    Camera c(500, 250, M_PI / 3);
+    Camera c(500, 250, M_PI / 2);
     c.transform = view_transformation(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0));
 
     Canvas img = c.render(std::make_shared<World>(w));
