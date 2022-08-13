@@ -18,6 +18,14 @@ public:
     std::vector<Colour> colours;
 };
 
+class StripeX : public Pattern {
+public:
+    StripeX(const std::vector<Colour>& colours)
+        : Pattern(colours) { }
+
+    Colour at(const Point& p) const override;
+};
+
 }; // namespace Pattern
 
 #endif // PATTERN_H
