@@ -14,7 +14,8 @@ Completed Sections:
 -   Light and Shading
 -   Making a Scene
 -   Shadows
+-   Planes
 
 Most recently-rendered image:
 
-![Sample image of spheres and shadows](images/world_demo_shadows.png)
+![Sample image of spheres and shadows](images/plane_demo.png)
