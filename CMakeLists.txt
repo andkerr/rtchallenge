@@ -109,3 +109,19 @@ TARGET_LINK_LIBRARIES(world_demo.exe
     transform
     world
 )
+
+ADD_EXECUTABLE(plane_demo.exe demos/plane_demo.cpp)
+TARGET_LINK_LIBRARIES(plane_demo.exe
+    canvas
+    camera
+    colour
+    double
+    geometry
+    light
+    matrix
+    plane
+    shape
+    sphere
+    transform
+    world
+)

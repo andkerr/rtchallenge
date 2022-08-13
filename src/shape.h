@@ -10,6 +10,30 @@
 #include <vector>
 
 struct Intersection;
+class Ray;
+class Shape;
+
+struct Intersection {
+    Intersection()
+        : t(0), obj(nullptr) { }
+
+    Intersection(double t, std::shared_ptr<Shape> obj)
+        : t(t), obj(obj) { }
+
+    bool operator==(const Intersection& rhs) const {
+        return (t == rhs.t) && (obj == rhs.obj);
+    }
+
+    bool operator<(const Intersection& rhs) const {
+        return t < rhs.t;
+    }
+
+    double t;
+    std::shared_ptr<Shape> obj;
+};
+
+bool find_hit(std::vector<Intersection>& solns, Intersection& hit);
+
 
 class Ray {
 public:
@@ -35,6 +59,7 @@ public:
     Vector direction;
 };
 
+
 class Shape {
 public:
     Shape() = default;
@@ -54,26 +79,5 @@ public:
     const Matrix4x4 obj_to_world;
     Material material;
 };
-
-struct Intersection {
-    Intersection()
-        : t(0), obj(nullptr) { }
-
-    Intersection(double t, std::shared_ptr<Shape> obj)
-        : t(t), obj(obj) { }
-
-    bool operator==(const Intersection& rhs) const {
-        return (t == rhs.t) && (obj == rhs.obj);
-    }
-
-    bool operator<(const Intersection& rhs) const {
-        return t < rhs.t;
-    }
-
-    double t;
-    std::shared_ptr<Shape> obj;
-};
-
-bool find_hit(std::vector<Intersection>& solns, Intersection& hit);
 
 #endif //PRIMITIVES_H

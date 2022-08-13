@@ -5,7 +5,16 @@
 
 bool Plane::intersects(const Ray& r, std::vector<Intersection>& solns) const {
     Ray ray = r.transform(obj_to_world.inverse());
-    // TODO
+    if (doubleEqual(ray.direction.y, 0.)) {
+        // local ray is entirely in xz
+        return false;
+    }
+    else {
+        // Ray is not parallel to the plane
+        double t = -ray.origin.y / ray.direction.y;
+        solns.push_back(Intersection(t, create_plane(obj_to_world)));
+        return true;
+    }
 }
 
 Vector Plane::normal_at(const Point& p) const {
@@ -22,4 +31,8 @@ Vector Plane::normal_at(const Point& p) const {
 
 Vector Plane::reflect(const Ray& r, const Point& p) const {
     assert(false);
+}
+
+std::shared_ptr<Shape> create_plane(const Matrix4x4& obj_to_world) {
+    return std::make_shared<Plane>(Plane(obj_to_world));
 }
