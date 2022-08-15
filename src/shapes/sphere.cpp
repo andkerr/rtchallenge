@@ -34,10 +34,8 @@ bool Sphere::intersects(const Ray& r, std::vector<Intersection>& solns) const {
         return false;
     }
     else {
-        solns.push_back(Intersection(t1, create_sphere(obj_to_world, radius)));
-        solns.push_back(Intersection(t2, create_sphere(obj_to_world, radius)));
-        solns[0].obj->material = material;
-        solns[1].obj->material = material;
+        solns.push_back(Intersection(t1, std::make_shared<Sphere>(*this)));
+        solns.push_back(Intersection(t2, std::make_shared<Sphere>(*this)));
         return true;
     }
 }

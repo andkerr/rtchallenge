@@ -63,4 +63,17 @@ TEST_CASE("Light tests") {
 
         REQUIRE(lighting(Material(), &p_light, position, camera, normal, true) == Colour(0.1, 0.1, 0.1));       
     }
+
+    SECTION("The lighting functions considers whether a given material has a pattern") {
+        Material m(1., 0., 0., 200.,
+                   Colour(0.5, 0.5, 0.5),
+                   std::make_shared<Pattern::Stripe>(Pattern::Stripe(Colour(1, 1, 1), Colour(0, 0, 0))));
+
+        Vector v_eye(0, 0, -1);
+        Vector v_norm(0, 0, -1);
+        PointLight light(Point(0, 0, -10), Colour(1, 1, 1));
+
+        REQUIRE(lighting(m, &light, Point(0.9, 0, 0), v_eye, v_norm, false) == Colour(1, 1, 1));
+        REQUIRE(lighting(m, &light, Point(1.1, 0, 0), v_eye, v_norm, false) == Colour(0, 0, 0));
+    }
 }

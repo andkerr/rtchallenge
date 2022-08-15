@@ -9,8 +9,15 @@ Colour lighting(const Material& m,
                 const Vector& camera,
                 const Vector& normal,
                 bool in_shadow) {
-    Colour c_effective, ambient, diffuse, specular;
-    c_effective = m.colour * light->intensity;
+    Colour colour, c_effective, ambient, diffuse, specular;
+    if (m.pattern.get() != nullptr) {
+        colour = m.pattern->at(pos);
+    }
+    else {
+        colour = m.colour;
+    }
+
+    c_effective = colour * light->intensity;
     ambient = c_effective * m.ambient;
 
     Vector light_vec = Vector(light->position - pos).normalize();

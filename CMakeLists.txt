@@ -16,6 +16,7 @@ ADD_LIBRARY(double src/double.cpp)
 ADD_LIBRARY(geometry src/geometry.cpp)
 ADD_LIBRARY(light src/light.cpp)
 ADD_LIBRARY(matrix src/matrix.cpp)
+ADD_LIBRARY(pattern src/pattern.cpp)
 ADD_LIBRARY(plane src/shapes/plane.cpp)
 ADD_LIBRARY(shape src/shape.cpp)
 ADD_LIBRARY(sphere src/shapes/sphere.cpp)
@@ -45,6 +46,7 @@ TARGET_LINK_LIBRARIES(rtc_test.exe PRIVATE
     geometry
     light
     matrix
+    pattern
     plane
     shape
     sphere
@@ -119,6 +121,23 @@ TARGET_LINK_LIBRARIES(plane_demo.exe
     geometry
     light
     matrix
+    plane
+    shape
+    sphere
+    transform
+    world
+)
+
+ADD_EXECUTABLE(pattern_demo.exe demos/pattern_demo.cpp)
+TARGET_LINK_LIBRARIES(pattern_demo.exe
+    canvas
+    camera
+    colour
+    double
+    geometry
+    light
+    matrix
+    pattern
     plane
     shape
     sphere

@@ -71,9 +71,10 @@ public:
 
     virtual bool intersects(const Ray& r, std::vector<Intersection>& solns) const = 0;
 
-    // 7/28: It might make sense to move these elsewhere
     virtual Vector normal_at(const Point& p) const = 0;
     virtual Vector reflect(const Ray& r, const Point& p) const = 0;
+
+    Colour pattern_at(const Point& p) const;
 
     // Public Shape data
     const Matrix4x4 obj_to_world;

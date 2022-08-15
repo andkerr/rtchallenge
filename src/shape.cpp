@@ -18,3 +18,13 @@ bool find_hit(std::vector<Intersection>& solns, Intersection& hit) {
         return false;
     }
 }
+
+Colour Shape::pattern_at(const Point& p) const {
+    if (material.pattern.get() == nullptr) {
+        throw std::invalid_argument("This Shape does not have a pattern");
+    }
+
+    Point point = obj_to_world.inverse().mul(p);
+    Point pattern_point = material.pattern->transform.inverse().mul(point);
+    return material.pattern->at(pattern_point);
+}

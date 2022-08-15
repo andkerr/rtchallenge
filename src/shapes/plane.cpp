@@ -12,7 +12,7 @@ bool Plane::intersects(const Ray& r, std::vector<Intersection>& solns) const {
     else {
         // Ray is not parallel to the plane
         double t = -ray.origin.y / ray.direction.y;
-        solns.push_back(Intersection(t, create_plane(obj_to_world)));
+        solns.push_back(Intersection(t, std::make_shared<Plane>(*this)));
         return true;
     }
 }

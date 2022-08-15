@@ -2,6 +2,7 @@
 #define MATERIAL_H
 
 #include "colour.h"
+#include "pattern.h"
 
 #include <stdexcept>
 
@@ -18,21 +19,30 @@ public:
           diffuse(DEFAULT_DIFFUSE),
           specular(DEFAULT_SPECULAR),
           shininess(DEFAULT_SHININESS),
-          colour(DEFAULT_COLOUR) { }
+          colour(DEFAULT_COLOUR),
+          pattern(nullptr) { }
 
-    Material(const Colour& c)
+    Material(const Colour& c,
+             const std::shared_ptr<Pattern::Pattern> pattern = nullptr)
         : ambient(DEFAULT_AMBIENCE),
           diffuse(DEFAULT_DIFFUSE),
           specular(DEFAULT_SPECULAR),
           shininess(DEFAULT_SHININESS),
-          colour(c) { }
+          colour(c),
+          pattern(pattern) { }
 
-    Material(double ambient, double diffuse, double specular, double shininess, const Colour& c)
+    Material(double ambient,
+             double diffuse,
+             double specular,
+             double shininess,
+             const Colour& c,
+             const std::shared_ptr<Pattern::Pattern> pattern = nullptr)
         : ambient(ambient),
           diffuse(diffuse),
           specular(specular),
           shininess(shininess),
-          colour(c) {
+          colour(c),
+          pattern(pattern) {
             if (ambient < 0) {
                 throw std::invalid_argument("Material ambience must be non-negative");
             }
@@ -49,6 +59,7 @@ public:
 
     double ambient, diffuse, specular, shininess;
     Colour colour;
+    std::shared_ptr<Pattern::Pattern> pattern;
 };
 
 #endif // MATERIAL_H
