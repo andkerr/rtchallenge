@@ -3,10 +3,6 @@
 
 #include <exception>
 
-struct QuadraticCoeffs {
-    double a, b, c;
-};
-
 static bool quadratic_has_solns(double a, double b, double c, double &t1, double &t2) {
     double discrim = b*b - 4*a*c;
     if (discrim < 0) {

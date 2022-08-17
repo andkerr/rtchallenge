@@ -30,12 +30,15 @@ int main() {
     left_wall->material.pattern = pattern;
     left_wall->material.specular = 0;
 
+    std::shared_ptr<Pattern::Pattern> check(new Pattern::Check3D(Colour(1, 1, 1),
+                                                                 Colour(0.9, 0, 0.4),
+                                                                 Transform::scale(0.2, 0.2, 0.2)));
     transform = Transform::translate(-0.5, 1, 0.5);
     std::shared_ptr<Shape> middle = create_sphere(transform, 1);
     middle->material.colour = Colour(0.1, 1, 0.5);
     middle->material.diffuse = 0.7;
     middle->material.specular = 0.3;
-    middle->material.pattern = pattern;
+    middle->material.pattern = check;
 
     transform = Transform::translate(1.5, 0.5, -0.5)
            .mul(Transform::scale(0.5, 0.5, 0.5));
@@ -63,7 +66,7 @@ int main() {
     w.add_shape(right);
 
     Camera c(500, 250, M_PI / 2);
-    c.transform = view_transformation(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0));
+    c.transform = view_transformation(Point(-1.5, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0));
 
     Canvas img = c.render(std::make_shared<World>(w));
 

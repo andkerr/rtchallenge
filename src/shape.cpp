@@ -25,6 +25,5 @@ Colour Shape::pattern_at(const Point& p) const {
     }
 
     Point point = obj_to_world.inverse().mul(p);
-    Point pattern_point = material.pattern->transform.inverse().mul(point);
-    return material.pattern->at(pattern_point);
+    return material.pattern->at(point);
 }
